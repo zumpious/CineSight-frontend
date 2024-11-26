@@ -1,5 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
+import MovieCard from "@/components/MovieCard/MovieCard";
+
+// Mock featured movies - replace with API call later
+const FEATURED_MOVIES = [
+  {
+    id: '1',
+    title: 'Inception',
+    rating: 8.8,
+    imageUrl: '/movie1.jpg',
+  },
+  {
+    id: '2',
+    title: 'The Dark Knight',
+    rating: 9.0,
+    imageUrl: '/movie2.jpg',
+  },
+  {
+    id: '3',
+    title: 'Interstellar',
+    rating: 8.6,
+    imageUrl: '/movie3.jpg',
+  },
+  {
+    id: '4',
+    title: 'Pulp Fiction',
+    rating: 8.9,
+    imageUrl: '/movie4.jpg',
+  }
+]
+
 
 export default function Home() {
   return (
@@ -62,27 +92,22 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">Featured Movies</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {/* Movie preview cards will be populated here */}
-            {[1, 2, 3, 4].map((i) => (
-              <div 
-                key={i}
-                className="bg-secondary-color rounded-lg overflow-hidden 
-                         transition-transform hover:scale-105"
-              >
-                <div className="h-[300px] bg-gray-800" />
-                <div className="p-4">
-                  <h3 className="font-bold mb-2">Movie Title</h3>
-                  <p className="text-text-secondary">Rating: ⭐ 8.5</p>
-                </div>
-              </div>
+            {FEATURED_MOVIES.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                id={movie.id}
+                title={movie.title}
+                rating={movie.rating}
+                imageUrl={movie.imageUrl}
+              />
             ))}
           </div>
           <div className="text-center mt-12">
             <Link 
               href="/movies"
               className="border border-accent-color text-accent-color px-8 py-3 
-                       rounded-full hover:bg-accent-color hover:text-primary-color 
-                       transition-colors"
+                      rounded-full hover:bg-accent-color hover:text-primary-color 
+                      transition-colors"
             >
               View All Movies
             </Link>
