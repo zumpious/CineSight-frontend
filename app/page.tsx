@@ -52,7 +52,8 @@ export default function Home() {
           </h1>
           <p className="text-xl text-gray-200 mb-8 max-w-2xl">
             Explore thousands of movies with ratings, reviews, and detailed information
-            from IMDB.
+            from IMDB. Analyze dozen of interactive plots suchs as wordclouds generated 
+            by a movies user reviews or income comparision between movies.
           </p>
           <Link 
             href="/movies" 
