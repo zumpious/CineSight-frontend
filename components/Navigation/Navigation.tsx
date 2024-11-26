@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NavItem } from './Navigation.types';
+import styles from './Navigation.module.css';
 
 const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
@@ -28,9 +29,9 @@ export default function Navigation() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`transition-colors hover:text-accent-color ${
+                  className={`${styles.navLink} ${
                     pathname === item.href 
-                      ? 'text-accent-color' 
+                      ? `text-accent-color ${styles.active}` 
                       : 'text-text-primary'
                   }`}
                 >

@@ -1,0 +1,24 @@
+.navLink {
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  display: block;
+  right: 0;
+  background: var(--foreground);
+  transition: width 0.5s ease;
+  -webkit-transition: width 0.5s ease;
+}
+
+.navLink:hover::after {
+  width: 100%;
+  left: 0;
+  background: var(--foreground);
+}
