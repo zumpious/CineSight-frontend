@@ -2,25 +2,24 @@
 
 CineSight is an interactive movie exploration platform that allows users to navigate through hundreds of movies and filter them based on specific criteria such as release year, average rating, and gross income. Users can view detailed information about each movie, along with a dynamically generated word cloud from user comments. This frontend application is built with React and is currently a work in progress.
 
-## Project Setup
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting Started
 
-## Available Scripts
+First, run the development server:
 
-In the project directory, you can run:
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- **`npm start`**: Runs the app in development mode.\
-  Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload on edits, and lint errors will be displayed in the console.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- **`npm test`**: Launches the test runner in interactive watch mode.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- **`npm run build`**: Builds the app for production to the `build` folder, optimizing the React app for best performance and minifying the files.
-
-## Status
-
-This project is currently under active development, with additional features and improvements planned.
-
-## Learn More
-
-To learn more about React, check out the [React documentation](https://reactjs.org/).
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
