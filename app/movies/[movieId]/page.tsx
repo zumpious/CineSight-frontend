@@ -10,8 +10,9 @@ interface MovieDetailProps {
 }
 
 export default async function MovieDetail({ params }: MovieDetailProps) {
-  const movie: MovieDetailType = await fetchMovieById(params.movieId);
-
+  const local_params = await params;
+  const movie: MovieDetailType = await fetchMovieById(local_params.movieId);
+  
   return (
     <div className="min-h-screen py-10">
       <div className="container mx-auto px-4">

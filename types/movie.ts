@@ -25,6 +25,9 @@ export interface MovieDetail {
   ratings: { [key: string]: number };
   release: string;
   runtime: number;
+  wordcloud: {
+    [word: string]: [number, number];
+  };
 }
 
 export interface MovieReview {
