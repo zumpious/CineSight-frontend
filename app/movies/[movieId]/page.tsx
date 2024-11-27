@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { fetchMovieById } from '@/services/movie_api';
+import { MovieDetail as MovieDetailType } from '@/types/movie';
 
 interface MovieDetailProps {
   params: {
@@ -7,23 +9,8 @@ interface MovieDetailProps {
   };
 }
 
-const MOCK_MOVIE = {
-  id: '1',
-  title: 'Inception',
-  rating: 8.8,
-  imageUrl: '/movie1.jpg',
-  year: 2010,
-  director: 'Christopher Nolan',
-  duration: '2h 28min',
-  genre: ['Action', 'Sci-Fi', 'Thriller'],
-  plot: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.',
-  cast: ['Leonardo DiCaprio', 'Joseph Gordon-Levitt', 'Ellen Page'],
-};
-
 export default async function MovieDetail({ params }: MovieDetailProps) {
-  // Todo fetch movies from our API
-  // const movie = await fetchMovieById(params.movieId);
-  const movie = MOCK_MOVIE;
+  const movie: MovieDetailType = await fetchMovieById(params.movieId);
 
   return (
     <div className="min-h-screen py-10">
@@ -40,7 +27,7 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div className="relative h-[450px] md:col-span-1">
             <Image
-              src={movie.imageUrl}
+              src={movie.cover}
               alt={movie.title}
               fill
               className="object-cover rounded-lg"
@@ -54,36 +41,49 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
               <span className="flex items-center gap-1">
                 <span>⭐</span> {movie.rating}
               </span>
-              <span>{movie.year}</span>
-              <span>{movie.duration}</span>
+              <span>{new Date(movie.release).toLocaleDateString()}</span>
+              <span>{movie.runtime} min</span>
             </div>
             
             <div className="space-y-4">
-              <p className="text-lg">{movie.plot}</p>
+              <p className="text-lg">{movie.origin}</p>
+              <p className="text-lg">Age: {movie.age}</p>
+              <p className="text-lg">Box Office: ${movie.boxoffice.toLocaleString()}</p>
+              <p className="text-lg">Budget: ${movie.budget.toLocaleString()}</p>
+              <p className="text-lg">ROI: {movie.ROI}%</p>
               
               <div>
-                <h2 className="text-xl font-bold mb-2">Director</h2>
-                <p>{movie.director}</p>
-              </div>
-
-              <div>
-                <h2 className="text-xl font-bold mb-2">Genre</h2>
+                <h2 className="text-xl font-bold mb-2">Directors</h2>
                 <div className="flex gap-2">
-                  {movie.genre.map((g) => (
+                  {movie.directors.map((director) => (
                     <span 
-                      key={g}
+                      key={director}
                       className="bg-secondary-color px-3 py-1 rounded-full text-sm"
                     >
-                      {g}
+                      {director}
                     </span>
                   ))}
                 </div>
               </div>
 
               <div>
-                <h2 className="text-xl font-bold mb-2">Cast</h2>
+                <h2 className="text-xl font-bold mb-2">Genres</h2>
+                <div className="flex gap-2">
+                  {movie.genres.map((genre) => (
+                    <span 
+                      key={genre}
+                      className="bg-secondary-color px-3 py-1 rounded-full text-sm"
+                    >
+                      {genre}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-bold mb-2">Actors</h2>
                 <div className="flex flex-wrap gap-2">
-                  {movie.cast.map((actor) => (
+                  {movie.actors.map((actor) => (
                     <span 
                       key={actor}
                       className="bg-secondary-color px-3 py-1 rounded-full text-sm"
@@ -92,6 +92,27 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
                     </span>
                   ))}
                 </div>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-bold mb-2">Rating Details</h2>
+                <div className="flex flex-wrap gap-2">
+                  {Object.entries(movie.ratings).map(([key, value]) => (
+                    <span 
+                      key={key}
+                      className="bg-secondary-color px-3 py-1 rounded-full text-sm"
+                    >
+                      {key}: {value}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-bold mb-2">More Info</h2>
+                <a href={movie.link} className="text-accent-color hover:underline">
+                  {movie.link}
+                </a>
               </div>
             </div>
           </div>
