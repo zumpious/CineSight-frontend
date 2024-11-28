@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { fetchMovieById } from '@/services/movie_api';
 import { MovieDetail as MovieDetailType } from '@/types/movie';
+import WordCloud from '@/components/WordCloud/WordCloud';
 
 interface MovieDetailProps {
   params: {
@@ -12,6 +13,8 @@ interface MovieDetailProps {
 export default async function MovieDetail({ params }: MovieDetailProps) {
   const local_params = await params;
   const movie: MovieDetailType = await fetchMovieById(local_params.movieId);
+  // todo: add word cloud
+  // https://airbnb.io/visx/wordcloud ?
   
   return (
     <div className="min-h-screen py-10">
@@ -116,6 +119,12 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+        {/* Word Cloud Section */}
+        <div className="mt-12 flex justify-center">
+          <div className="w-2/3 bg-white/5 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+            <WordCloud words={movie.wordcloud} />
           </div>
         </div>
       </div>
