@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MovieCardProps } from './MovieCard.types';
 
-export default function MovieCard({ id, title, rating, cover, release,  }: MovieCardProps) {
+export default function MovieCard({ id, title, rating, cover, release }: MovieCardProps) {
   return (
     <Link href={`/movies/${id}`}>
       <div className="bg-secondary-color rounded-lg overflow-hidden 

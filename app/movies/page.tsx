@@ -1,12 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
 import MovieCard from '@/components/MovieCard/MovieCard';
-import { fetchMovies, MovieFilters } from '@/services/movies_api';
+import { fetchMovies } from '@/services/movies_api';
 import { Movie } from '@/types/movie';
 
 const ITEMS_PER_PAGE = 8;
-const YEARS = Array.from({length: 43}, (_, i) => 2022 - i);
-const RATINGS = Array.from({length: 10}, (_, i) => i + 1);
+const YEARS = Array.from({ length: 43 }, (_, i) => 2022 - i);
+const RATINGS = Array.from({ length: 10 }, (_, i) => i + 1);
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -25,7 +25,7 @@ export default function MoviesPage() {
         limit: ITEMS_PER_PAGE,
         offset: newOffset,
       };
-      
+
       const newMovies = await fetchMovies(filters);
       setMovies(reset ? newMovies : [...movies, ...newMovies]);
       setOffset(reset ? ITEMS_PER_PAGE : offset + ITEMS_PER_PAGE);
@@ -41,7 +41,7 @@ export default function MoviesPage() {
       await loadMovies(true);
     };
     fetchInitialMovies();
-  }, [selectedYear, selectedRating]); 
+  }, [selectedYear, selectedRating]);
 
   const handleYearClick = (year: number) => {
     setSelectedYear(selectedYear === year ? null : year);
@@ -53,16 +53,56 @@ export default function MoviesPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 flex gap-8">
-        {/* Sticky Sidebar - 1/3 width */}
-        <div className="w-1/4 sticky top-0 h-screen pt-10 overflow-y-auto">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row md:gap-8">
+        {/* Mobile Filters - Displayed Above Movies */}
+        <div className="block md:hidden w-full pt-10">
+          <div className="mb-4">
+            <label htmlFor="mobile-year-filter" className="block text-3xl font-medium mb-2">
+              Filter by Year
+            </label>
+            <select
+              id="mobile-year-filter"
+              value={selectedYear || ''}
+              onChange={(e) => setSelectedYear(Number(e.target.value) || null)}
+              className="w-full p-2 border rounded text-black"
+            >
+              <option value="">All Years</option>
+              {YEARS.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="mobile-rating-filter" className="block text-3xl font-medium mb-2">
+              Filter by Rating
+            </label>
+            <select
+              id="mobile-rating-filter"
+              value={selectedRating || ''}
+              onChange={(e) => setSelectedRating(Number(e.target.value) || null)}
+              className="w-full p-2 border rounded text-black"
+            >
+              <option value="">All Ratings</option>
+              {RATINGS.map((rating) => (
+                <option key={rating} value={rating}>
+                  {rating}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Sticky Sidebar - Only on Laptop and Above */}
+        <div className="hidden md:block w-1/4 sticky top-0 h-screen pt-10 overflow-y-auto">
           <h1 className="text-3xl font-bold mb-6">Filters</h1>
-          
+
           {/* Year filters */}
           <div className="mb-6">
             <h2 className="text-xl mb-3">Filter by Year</h2>
             <div className="grid grid-cols-4 gap-2 pr-4">
-              {YEARS.map(year => (
+              {YEARS.map((year) => (
                 <button
                   key={year}
                   onClick={() => handleYearClick(year)}
@@ -71,8 +111,8 @@ export default function MoviesPage() {
                     flex items-center justify-center
                     rounded
                     text-sm
-                    ${selectedYear === year 
-                      ? 'bg-blue-500 text-white' 
+                    ${selectedYear === year
+                      ? 'bg-blue-500 text-white'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                     }
                   `}
@@ -87,7 +127,7 @@ export default function MoviesPage() {
           <div className="mb-8">
             <h2 className="text-xl mb-3">Filter by Rating</h2>
             <div className="grid grid-cols-5 gap-2 pr-4">
-              {RATINGS.map(rating => (
+              {RATINGS.map((rating) => (
                 <button
                   key={rating}
                   onClick={() => handleRatingClick(rating)}
@@ -96,8 +136,8 @@ export default function MoviesPage() {
                     flex items-center justify-center
                     rounded
                     text-sm
-                    ${selectedRating === rating 
-                      ? 'bg-blue-500 text-white' 
+                    ${selectedRating === rating
+                      ? 'bg-blue-500 text-white'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                     }
                   `}
@@ -109,18 +149,15 @@ export default function MoviesPage() {
           </div>
         </div>
 
-        {/* Main Content - 2/3 width */}
-        <div className="w-3/4 pt-10">
+        {/* Main Content */}
+        <div className="w-full md:w-3/4 pt-10">
           <h1 className="text-3xl font-bold mb-8">Movies</h1>
-          
+
           {loading && <div className="text-center">Loading...</div>}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                {...movie}
-              />
+              <MovieCard key={movie.id} {...movie} />
             ))}
           </div>
 
