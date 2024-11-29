@@ -22,3 +22,83 @@
   left: 0;
   background: var(--foreground);
 }
+
+.burgerButton {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .burgerButton {
+    display: flex;
+  }
+
+  .desktopNav {
+    display: none;
+  }
+}
+
+.burgerLine {
+  width: 100%;
+  height: 2px;
+  background-color: var(--foreground);
+  transition: all 0.3s ease;
+}
+
+.burgerButton[data-open="true"] .burgerLine:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.burgerButton[data-open="true"] .burgerLine:nth-child(2) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.mobileNav {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  visibility: hidden;
+}
+
+.mobileNav[data-open="true"] {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileNavList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.mobileNavItem {
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.mobileNav[data-open="true"] .mobileNavItem {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .mobileNav {
+    display: none;
+  }
+}
