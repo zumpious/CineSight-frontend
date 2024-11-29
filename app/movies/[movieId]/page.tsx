@@ -122,10 +122,13 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
           </div>
         </div>
         {/* Word Cloud Section */}
-        <div className="mt-12 flex justify-center">
-          <div className="w-2/3 bg-white/5 backdrop-blur-sm rounded-xl p-4 shadow-lg">
-            <WordCloud words={movie.wordcloud} />
-          </div>
+        <div className="mt-12 flex justify-end">
+          <div className="w-2/3">
+            <h2 className="text-2xl font-bold mb-6">Word Cloud of Most Frequent Words in IMDB User Reviews</h2>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+                <WordCloud words={movie.wordcloud} />
+              </div>
+            </div>
         </div>
       </div>
     </div>

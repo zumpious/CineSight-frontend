@@ -45,8 +45,8 @@ export default function WordCloud({ words }: WordCloudProps) {
     
         wordData.sort((a, b) => b.size - a.size);
     
-        const width = 600;  // Reduced from 1200
-        const height = 400; // Reduced from 800
+        const width = 600;
+        const height = 400;
     
         const layout = cloud<Word>()
         .size([width, height])
@@ -90,7 +90,7 @@ export default function WordCloud({ words }: WordCloudProps) {
 
   return (
     <div>
-        <svg ref={svgRef} className="h-[500px] w-full" preserveAspectRatio="xMidYMid meet" />
+        <svg ref={svgRef} className="w-full" preserveAspectRatio="xMidYMid meet" />
     </div>
   );
 }
