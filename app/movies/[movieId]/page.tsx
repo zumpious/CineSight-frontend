@@ -3,12 +3,7 @@ import Link from 'next/link';
 import { fetchMovieById } from '@/services/movie_api';
 import { MovieDetail as MovieDetailType } from '@/types/movie';
 import WordCloud from '@/components/WordCloud/WordCloud';
-
-interface MovieDetailProps {
-  params: {
-    movieId: string;
-  };
-}
+import { MovieDetailProps} from './page.types';
 
 export default async function MovieDetail({ params }: MovieDetailProps) {
   const local_params = await params;
@@ -119,6 +114,7 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
             </div>
           </div>
         </div>
+
         {/* Word Cloud Section */}
         <div className="mt-12 flex justify-end">
           <div className="w-2/3">
