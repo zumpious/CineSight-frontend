@@ -19,17 +19,17 @@ export default function Navigation() {
         <div className="flex h-16 items-center justify-between">
           <Link 
             href="/" 
-            className="text-xl font-bold text-accent-color"
+            className="text-3xl font-bold text-accent-color"
           >
             Cinesight
           </Link>
           
-          <ul className="flex gap-8">
+          <ul className="flex gap-12">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`${styles.navLink} ${
+                  className={`text-3xl ${styles.navLink} ${
                     pathname === item.href 
                       ? `text-accent-color ${styles.active}` 
                       : 'text-text-primary'

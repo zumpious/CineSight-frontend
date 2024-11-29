@@ -56,7 +56,7 @@ export default function MoviesPage() {
       <div className="container mx-auto px-4 flex gap-8">
         {/* Sticky Sidebar - 1/3 width */}
         <div className="w-1/4 sticky top-0 h-screen pt-10 overflow-y-auto">
-          <h1 className="text-3xl font-bold mb-8">Filters</h1>
+          <h1 className="text-3xl font-bold mb-6">Filters</h1>
           
           {/* Year filters */}
           <div className="mb-6">
@@ -86,7 +86,7 @@ export default function MoviesPage() {
           {/* Rating filters */}
           <div className="mb-8">
             <h2 className="text-xl mb-3">Filter by Rating</h2>
-            <div className="grid grid-cols-4 gap-2 pr-4">
+            <div className="grid grid-cols-5 gap-2 pr-4">
               {RATINGS.map(rating => (
                 <button
                   key={rating}
@@ -106,7 +106,7 @@ export default function MoviesPage() {
                 </button>
               ))}
             </div>
-</div>
+          </div>
         </div>
 
         {/* Main Content - 2/3 width */}
