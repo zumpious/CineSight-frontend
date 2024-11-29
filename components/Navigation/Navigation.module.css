@@ -84,6 +84,7 @@
   align-items: center;
   padding: 2rem;
   gap: 2rem;
+  background-color: black;
 }
 
 .mobileNavItem {

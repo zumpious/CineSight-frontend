@@ -64,7 +64,7 @@ export default function Navigation() {
             className={styles.mobileNav}
             data-open={isMenuOpen}
           >
-            <ul className={styles.mobileNavList}>
+            <ul className={`${styles.mobileNavList} backdrop-blur supports-[backdrop-filter]:bg-primary-color/60`}>
               {navItems.map((item, index) => (
                 <li 
                   key={item.href}
