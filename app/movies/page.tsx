@@ -11,24 +11,19 @@ const RATINGS = Array.from({ length: 10 }, (_, i) => i + 1);
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
-  const [offset, setOffset] = useState(0);
   const [selectedYear, setSelectedYear] = useState<number | null>(2022);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
-  const loadMovies = async (reset: boolean = false) => {
+  const loadMovies = async () => {
     setLoading(true);
     try {
-      const newOffset = reset ? 0 : offset;
       const filters = {
         year: selectedYear || undefined,
         rating: selectedRating || undefined,
-        limit: ITEMS_PER_PAGE,
-        offset: newOffset,
       };
 
       const newMovies = await fetchMovies(filters);
-      setMovies(reset ? newMovies : [...movies, ...newMovies]);
-      setOffset(reset ? ITEMS_PER_PAGE : offset + ITEMS_PER_PAGE);
+      setMovies(newMovies);
     } catch (error) {
       console.error('Error loading movies:', error);
     } finally {
@@ -37,10 +32,7 @@ export default function MoviesPage() {
   };
 
   useEffect(() => {
-    const fetchInitialMovies = async () => {
-      await loadMovies(true);
-    };
-    fetchInitialMovies();
+    loadMovies();
   }, [selectedYear, selectedRating]);
 
   const handleYearClick = (year: number) => {
@@ -160,17 +152,6 @@ export default function MoviesPage() {
               <MovieCard key={movie.id} {...movie} />
             ))}
           </div>
-
-          {movies.length > 0 && !loading && (
-            <div className="mt-8 mb-8 text-center">
-              <button
-                onClick={() => loadMovies()}
-                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
-              >
-                Load More
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div>
