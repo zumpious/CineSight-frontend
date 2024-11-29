@@ -2,61 +2,46 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import cloud from 'd3-cloud';
-
-interface WordCloudProps {
-  words: {
-    [word: string]: [number, number];
-  };
-}
-
-interface Word {
-  text: string;
-  size: number;
-  value: number;
-  frequency: number;
-  x?: number;
-  y?: number;
-}
+import { WordCloudProps, Word } from './WordCloud.types';
 
 export default function WordCloud({ words }: WordCloudProps) {
-    const svgRef = useRef<SVGSVGElement>(null);
-    
-    useEffect(() => {
-        if (!svgRef.current) return;
-    
-        d3.select(svgRef.current).selectAll("*").remove();
-    
-        const entries = Object.entries(words);
-        const maxCount = Math.max(...entries.map(([_, [__, count]]) => count));
-        const maxFreq = Math.max(...entries.map(([_, [freq, __]]) => freq));
-    
-        const wordData: Word[] = entries.map(([text, [frequency, count]]) => {
-        const freqWeight = frequency / maxFreq;
-        const countWeight = count / maxCount;
-        const combinedWeight = (freqWeight + countWeight) / 2;
-        
-        return {
-            text,
-            size: Math.max(12, Math.min(50, Math.pow(combinedWeight, 0.7) * 80)), // Reduced max size
-            value: count,
-            frequency: frequency
-        };
-        });
-    
-        wordData.sort((a, b) => b.size - a.size);
-    
-        const width = 600;
-        const height = 400;
-    
-        const layout = cloud<Word>()
-        .size([width, height])
-        .words(wordData)
-        .padding(2)
-        .rotate(() => 0)
-        .fontSize((d: Word) => d.size)
-        .spiral('archimedean')
-        .on("end", draw);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    if (!svgRef.current) return;
+
+    d3.select(svgRef.current).selectAll("*").remove();
+
+    const entries = Object.entries(words);
+    const maxCount = Math.max(...entries.map(([_, [__, count]]) => count));
+    const maxFreq = Math.max(...entries.map(([_, [freq, __]]) => freq));
+
+    const wordData: Word[] = entries.map(([text, [frequency, count]]) => {
+      const freqWeight = frequency / maxFreq;
+      const countWeight = count / maxCount;
+      const combinedWeight = (freqWeight + countWeight) / 2;
       
+      return {
+        text,
+        size: Math.max(12, Math.min(50, Math.pow(combinedWeight, 0.7) * 80)),
+        value: count,
+        frequency: frequency
+      };
+    });
+
+    wordData.sort((a, b) => b.size - a.size);
+
+    const width = 600;
+    const height = 400;
+
+    const layout = cloud<Word>()
+      .size([width, height])
+      .words(wordData)
+      .padding(2)
+      .rotate(() => 0)
+      .fontSize((d: Word) => d.size)
+      .spiral('archimedean')
+      .on("end", draw);
 
     function draw(words: Word[]) {
       const svg = d3.select(svgRef.current)
@@ -90,7 +75,7 @@ export default function WordCloud({ words }: WordCloudProps) {
 
   return (
     <div>
-        <svg ref={svgRef} className="w-full" preserveAspectRatio="xMidYMid meet" />
+      <svg ref={svgRef} className="w-full" preserveAspectRatio="xMidYMid meet" />
     </div>
   );
 }

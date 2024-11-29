@@ -13,8 +13,6 @@ interface MovieDetailProps {
 export default async function MovieDetail({ params }: MovieDetailProps) {
   const local_params = await params;
   const movie: MovieDetailType = await fetchMovieById(local_params.movieId);
-  // todo: add word cloud
-  // https://airbnb.io/visx/wordcloud ?
   
   return (
     <div className="min-h-screen py-10">
