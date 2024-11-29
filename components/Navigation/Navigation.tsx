@@ -27,7 +27,7 @@ export default function Navigation() {
             href="/" 
             className="text-3xl font-bold text-accent-color"
           >
-            Cinesight
+            CineSight
           </Link>
           
           {/* Desktop Navigation */}
@@ -64,12 +64,12 @@ export default function Navigation() {
             className={styles.mobileNav}
             data-open={isMenuOpen}
           >
-            <ul className={`${styles.mobileNavList} backdrop-blur supports-[backdrop-filter]:bg-primary-color/60`}>
+            <ul className={styles.mobileNavList}>
               {navItems.map((item, index) => (
                 <li 
                   key={item.href}
                   className={styles.mobileNavItem}
-                  style={{ transitionDelay: `${index * 100}ms` }}
+                  style={{ transitionDelay: `${index * 200}ms` }}
                 >
                   <Link
                     href={item.href}

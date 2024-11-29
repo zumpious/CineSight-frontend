@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import MovieCard from "@/components/MovieCard/MovieCard";
+import { release } from "os";
 
 // Mock featured movies - replace with API call later
 const FEATURED_MOVIES = [
@@ -9,24 +10,28 @@ const FEATURED_MOVIES = [
     title: 'Inception',
     rating: 8.8,
     imageUrl: '/movie1.jpg',
+    release: '2010',
   },
   {
     id: '2',
     title: 'The Dark Knight',
     rating: 9.0,
     imageUrl: '/movie2.jpg',
+    release: '2010',
   },
   {
     id: '3',
     title: 'Interstellar',
     rating: 8.6,
     imageUrl: '/movie3.jpg',
+    release: '2010',
   },
   {
     id: '4',
     title: 'Pulp Fiction',
     rating: 8.9,
     imageUrl: '/movie4.jpg',
+    release: '2010',
   }
 ]
 
@@ -99,7 +104,8 @@ export default function Home() {
                 id={movie.id}
                 title={movie.title}
                 rating={movie.rating}
-                imageUrl={movie.imageUrl}
+                cover={movie.imageUrl}
+                release={movie.release}
               />
             ))}
           </div>
