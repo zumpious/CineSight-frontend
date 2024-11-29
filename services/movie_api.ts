@@ -9,7 +9,5 @@ if (!API_BASE_URL) {
 
 export const fetchMovieById = async (id: string): Promise<MovieDetail> => {
   const response = await axios.get(`${API_BASE_URL}/movies/${id}`);
-  console.log(response.data);
-
   return response.data;
 };

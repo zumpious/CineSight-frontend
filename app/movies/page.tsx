@@ -4,7 +4,6 @@ import MovieCard from '@/components/MovieCard/MovieCard';
 import { fetchMovies } from '@/services/movies_api';
 import { Movie } from '@/types/movie';
 
-const ITEMS_PER_PAGE = 8;
 const YEARS = Array.from({ length: 43 }, (_, i) => 2022 - i);
 const RATINGS = Array.from({ length: 10 }, (_, i) => i + 1);
 

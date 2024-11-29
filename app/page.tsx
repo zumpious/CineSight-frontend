@@ -1,42 +1,31 @@
+'use client';
+import { useState, useEffect } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import MovieCard from "@/components/MovieCard/MovieCard";
-import { release } from "os";
-
-// Mock featured movies - replace with API call later
-const FEATURED_MOVIES = [
-  {
-    id: '1',
-    title: 'Inception',
-    rating: 8.8,
-    imageUrl: '/movie1.jpg',
-    release: '2010',
-  },
-  {
-    id: '2',
-    title: 'The Dark Knight',
-    rating: 9.0,
-    imageUrl: '/movie2.jpg',
-    release: '2010',
-  },
-  {
-    id: '3',
-    title: 'Interstellar',
-    rating: 8.6,
-    imageUrl: '/movie3.jpg',
-    release: '2010',
-  },
-  {
-    id: '4',
-    title: 'Pulp Fiction',
-    rating: 8.9,
-    imageUrl: '/movie4.jpg',
-    release: '2010',
-  }
-]
-
+import { fetchPreview } from "@/services/preview";
+import { Movie } from "@/types/movie";
 
 export default function Home() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadMovies = async () => {
+    setLoading(true);
+    try {
+      const newMovies = await fetchPreview();
+      setMovies(newMovies);
+    } catch (error) {
+      console.error('Error loading movies:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadMovies();
+  }, []);
+  
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -97,14 +86,15 @@ export default function Home() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">Featured Movies</h2>
+          {loading && <div className="text-center">Loading...</div>}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {FEATURED_MOVIES.map((movie) => (
+            {movies.map((movie) => (
               <MovieCard
                 key={movie.id}
                 id={movie.id}
                 title={movie.title}
                 rating={movie.rating}
-                cover={movie.imageUrl}
+                cover={movie.cover}
                 release={movie.release}
               />
             ))}
