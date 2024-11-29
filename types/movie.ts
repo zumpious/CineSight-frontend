@@ -1,3 +1,10 @@
+export interface Movie {
+  id: string;
+  title: string;
+  rating: number;
+  cover: string;
+  release: string;
+}
 
 export interface MovieDetail {
   id: string;
