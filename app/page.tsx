@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import MovieCard from "@/components/MovieCard/MovieCard";
+import Carousel from '@/components/Carousel';
 import { fetchPreview } from "@/services/preview";
 import { Movie } from "@/types/movie";
 
@@ -87,7 +88,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">Featured Movies</h2>
           {loading && <div className="text-center">Loading...</div>}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <Carousel>
             {movies.map((movie) => (
               <MovieCard
                 key={movie.id}
@@ -98,7 +99,7 @@ export default function Home() {
                 release={movie.release}
               />
             ))}
-          </div>
+          </Carousel>
           <div className="text-center mt-12">
             <Link 
               href="/movies"
