@@ -45,9 +45,30 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
             <div className="space-y-4">
               <p className="text-lg">{movie.origin}</p>
               <p className="text-lg">Age: {movie.age}</p>
-              <p className="text-lg">Box Office: ${movie.boxoffice.toLocaleString()}</p>
               <p className="text-lg">Budget: ${movie.budget.toLocaleString()}</p>
-              <p className="text-lg">ROI: {movie.ROI}%</p>
+              <p className="text-lg">Box Office: ${movie.boxoffice.toLocaleString()}</p>
+              <p className="text-lg flex items-center">
+                {movie.ROI >= 0 ? (
+                  <svg
+                    className="w-5 h-5 text-green-600 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M5 10l5-5 5 5H5z" />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-5 h-5 text-red-600 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M15 10l-5 5-5-5h10z" />
+                  </svg>
+                )}
+                <span className={`${movie.ROI >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  ROI: {movie.ROI.toFixed(2)}%
+                </span>
+              </p>
               
               <div>
                 <h2 className="text-xl font-bold mb-2">Directors</h2>
