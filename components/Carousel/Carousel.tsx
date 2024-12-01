@@ -1,22 +1,24 @@
 import { useRef, useState, useLayoutEffect } from 'react';
 import { CarouselProps } from './Carousel.types';
 
-export default function Carousel({ children, slidesPerView = 4 }: CarouselProps) {
+export default function Carousel({ children }: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [showPrevButton, setShowPrevButton] = useState(false);
   const [showNextButton, setShowNextButton] = useState(true);
+  const [slidesPerView, setSlidesPerView] = useState(4);
 
   const scroll = (direction: 'left' | 'right') => {
     if (!carouselRef.current) return;
 
     const itemWidth = carouselRef.current.offsetWidth / slidesPerView;
     const scrollAmount = itemWidth * slidesPerView;
-    const newScrollPosition = carouselRef.current.scrollLeft + 
+    const newScrollPosition =
+      carouselRef.current.scrollLeft +
       (direction === 'left' ? -scrollAmount : scrollAmount);
 
     carouselRef.current.scrollTo({
       left: newScrollPosition,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
@@ -35,10 +37,24 @@ export default function Carousel({ children, slidesPerView = 4 }: CarouselProps)
       updateButtonVisibility();
     }
 
+    const handleResize = () => {
+      if (window.innerWidth <= 640) {
+        setSlidesPerView(1.5);
+      } else if (window.innerWidth <= 1024) {
+        setSlidesPerView(3);
+      } else {
+        setSlidesPerView(4);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
     return () => {
       if (carousel) {
         carousel.removeEventListener('scroll', updateButtonVisibility);
       }
+      window.removeEventListener('resize', handleResize);
     };
   }, [children]);
 
@@ -51,22 +67,31 @@ export default function Carousel({ children, slidesPerView = 4 }: CarouselProps)
                      bg-secondary-color p-5 rounded-full shadow-lg z-10
                      hover:bg-accent-color transition-colors"
           aria-label="Previous slides"
-        >
-          <svg className="w-10 h-10" fill="none" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+          >
+          <svg
+            className="w-12 h-12"
+            fill="none"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
             <path d="M15 19l-7-7 7-7" />
           </svg>
         </button>
       )}
 
-      <div 
+      <div
         ref={carouselRef}
         className="overflow-x-auto scrollbar-hide scroll-smooth"
       >
-        <div 
+        <div
           className="grid grid-flow-col gap-6"
           style={{
-            gridTemplateColumns: `repeat(${Array.isArray(children) ? children.length : 1}, minmax(0, 1fr))`,
-            width: `calc(${Array.isArray(children) ? children.length : 1} * (100% / ${slidesPerView}))`
+            gridTemplateColumns: `repeat(${
+              Array.isArray(children) ? children.length : 1
+            }, minmax(0, 1fr))`,
+            width: `calc(${
+              Array.isArray(children) ? children.length : 1
+            } * (100% / ${slidesPerView}))`,
           }}
         >
           {children}
@@ -81,7 +106,13 @@ export default function Carousel({ children, slidesPerView = 4 }: CarouselProps)
                      hover:bg-accent-color transition-colors"
           aria-label="Next slides"
         >
-          <svg className="w-10 h-10" fill="none" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            className="w-12 h-12"
+            fill="none"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path d="M9 5l7 7-7 7" />
           </svg>
         </button>
