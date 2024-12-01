@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useLayoutEffect } from 'react';
 import { CarouselProps } from './Carousel.types';
 
 export default function Carousel({ children, slidesPerView = 4 }: CarouselProps) {
@@ -28,7 +28,7 @@ export default function Carousel({ children, slidesPerView = 4 }: CarouselProps)
     setShowNextButton(scrollLeft + clientWidth < scrollWidth);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const carousel = carouselRef.current;
     if (carousel) {
       carousel.addEventListener('scroll', updateButtonVisibility);
@@ -40,19 +40,19 @@ export default function Carousel({ children, slidesPerView = 4 }: CarouselProps)
         carousel.removeEventListener('scroll', updateButtonVisibility);
       }
     };
-  }, []);
+  }, [children]);
 
   return (
     <div className="relative">
       {showPrevButton && (
         <button
           onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 
-                     bg-secondary-color p-3 rounded-full shadow-lg z-10
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 
+                     bg-secondary-color p-5 rounded-full shadow-lg z-10
                      hover:bg-accent-color transition-colors"
           aria-label="Previous slides"
         >
-          <svg className="w-6 h-6" fill="none" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-10 h-10" fill="none" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M15 19l-7-7 7-7" />
           </svg>
         </button>
@@ -76,12 +76,12 @@ export default function Carousel({ children, slidesPerView = 4 }: CarouselProps)
       {showNextButton && (
         <button
           onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 
-                     bg-secondary-color p-3 rounded-full shadow-lg z-10
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 
+                     bg-secondary-color p-5 rounded-full shadow-lg z-10
                      hover:bg-accent-color transition-colors"
           aria-label="Next slides"
         >
-          <svg className="w-6 h-6" fill="none" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-10 h-10" fill="none" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M9 5l7 7-7 7" />
           </svg>
         </button>

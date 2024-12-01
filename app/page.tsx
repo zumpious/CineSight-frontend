@@ -83,10 +83,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Movies Preview */}
+      {/* Latest Movies Preview */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8">Featured Movies</h2>
+          <h2 className="text-3xl font-bold mb-8">Latest Movies</h2>
           {loading && <div className="text-center">Loading...</div>}
           <Carousel>
             {movies.map((movie) => (
