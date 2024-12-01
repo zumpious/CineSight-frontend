@@ -6,6 +6,7 @@ import MovieCard from "@/components/MovieCard/MovieCard";
 import Carousel from '@/components/Carousel';
 import { fetchPreview } from "@/services/preview";
 import { Movie } from "@/types/movie";
+import background from "../public/img/background.jpg";
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -34,7 +35,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-primary-color z-10" />
         <div className="absolute inset-0">
           <Image
-            src="/hero-bg.jpg"
+            src="/img/background.jpg"
             alt="Featured Movie"
             fill
             className="object-cover"
@@ -51,11 +52,12 @@ export default function Home() {
             by a movies user reviews or income comparision between movies.
           </p>
           <Link 
-            href="/movies" 
-            className="bg-accent-color text-primary-color px-8 py-3 rounded-full 
-                     font-semibold hover:bg-accent-color/90 transition-colors"
+            href="/movies"
+            className="border border-accent-color text-accent-color px-8 py-3 
+                    rounded-full hover:bg-accent-color hover:text-primary-color 
+                    transition-colors"
           >
-            Explore Movies
+            View All Movies
           </Link>
         </div>
       </section>
