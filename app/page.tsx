@@ -11,7 +11,7 @@ export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const loadMovies = async () => {
+  const loadPreview = async () => {
     setLoading(true);
     try {
       const newMovies = await fetchPreview();
@@ -24,17 +24,17 @@ export default function Home() {
   };
 
   useEffect(() => {
-    loadMovies();
+    loadPreview();
   }, []);
   
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen absolute w-full top-0">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center">
+      <section className="relative h-[100vh] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-primary-color z-10" />
         <div className="absolute inset-0">
           <Image
-            src="/img/background.jpg"
+            src="/img/background2.jpg"
             alt="Featured Movie"
             fill
             className="object-cover"

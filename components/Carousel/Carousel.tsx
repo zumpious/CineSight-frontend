@@ -82,7 +82,7 @@ export default function Carousel({ children }: CarouselProps) {
 
         <div
         ref={carouselRef}
-        className="overflow-x-auto scrollbar-hide scroll-smooth"
+        className="overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth"
         >
         <div
             className="grid grid-flow-col gap-6"
