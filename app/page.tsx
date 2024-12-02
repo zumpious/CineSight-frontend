@@ -28,13 +28,13 @@ export default function Home() {
   }, []);
   
   return (
-    <div className="min-h-screen absolute w-full top-0">
+    <div className="min-h-screen absolute w-full top-0 bg-secondary-color">
       {/* Hero Section */}
       <section className="relative h-[100vh] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-primary-color z-10" />
         <div className="absolute inset-0">
           <Image
-            src="/img/background2.jpg"
+            src="/img/background.jpg"
             alt="Featured Movie"
             fill
             className="object-cover"
@@ -78,7 +78,7 @@ export default function Home() {
       </section>
 
       {/* Latest Movies Preview */}
-      <section className="py-20">
+      <section className="py-20 bg-secondary-color">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">Latest Movies</h2>
           {loading && <div className="text-center">Loading...</div>}
