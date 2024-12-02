@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Image from "next/image";
-import Link from "next/link";
 import MovieCard from "@/components/MovieCard/MovieCard";
 import Carousel from '@/components/Carousel';
 import { fetchPreview } from "@/services/preview-api";

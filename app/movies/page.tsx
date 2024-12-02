@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import MovieCard from '@/components/MovieCard/MovieCard';
 import FilterButton from '@/components/FilterButton';
+import FilterSelect from '@/components/FilterSelect';
 import { fetchMovies } from '@/services/movies_api';
 import { Movie } from '@/types/movie';
 
@@ -48,42 +49,22 @@ export default function MoviesPage() {
       <div className="container mx-auto px-4 flex flex-col md:flex-row md:gap-8">
         {/* Mobile Filters - Displayed Above Movies */}
         <div className="block md:hidden w-full pt-10">
-          <div className="mb-4">
-            <label htmlFor="mobile-year-filter" className="block text-3xl font-medium mb-2">
-              Filter by Year
-            </label>
-            <select
-              id="mobile-year-filter"
-              value={selectedYear || ''}
-              onChange={(e) => setSelectedYear(Number(e.target.value) || null)}
-              className="w-full p-2 border rounded text-black"
-            >
-              <option value="">All Years</option>
-              {YEARS.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-4">
-            <label htmlFor="mobile-rating-filter" className="block text-3xl font-medium mb-2">
-              Filter by Rating
-            </label>
-            <select
-              id="mobile-rating-filter"
-              value={selectedRating || ''}
-              onChange={(e) => setSelectedRating(Number(e.target.value) || null)}
-              className="w-full p-2 border rounded text-black"
-            >
-              <option value="">All Ratings</option>
-              {RATINGS.map((rating) => (
-                <option key={rating} value={rating}>
-                  {rating}
-                </option>
-              ))}
-            </select>
-          </div>
+          <FilterSelect<number>
+            label="Filter by Year"
+            id="mobile-year-filter"
+            value={selectedYear}
+            onChange={(value) => setSelectedYear(value)}
+            options={YEARS}
+            allLabel="All Years"
+          />
+          <FilterSelect<number>
+            label="Filter by Rating"
+            id="mobile-rating-filter"
+            value={selectedRating}
+            onChange={(value) => setSelectedRating(value)}
+            options={RATINGS}
+            allLabel="All Ratings"
+          />
         </div>
 
         {/* Sticky Sidebar - Only on Laptop and Above */}
