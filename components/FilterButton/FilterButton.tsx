@@ -9,7 +9,9 @@ export default function FilterButton({ text, onClick, selected }: FilterButtonPr
         px-2 h-6
         flex items-center justify-center
         rounded
-        text-sm
+        2xl:text-lg
+        lg:text-sm
+        sm:text-xs
         border-[0.5px]
         transition-colors
         ${
