@@ -6,6 +6,7 @@ import MovieCard from "@/components/MovieCard/MovieCard";
 import Carousel from '@/components/Carousel';
 import { fetchPreview } from "@/services/preview-api";
 import { Movie } from "@/types/movie";
+import PillLink from '@/components/PillLink';
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -50,14 +51,7 @@ export default function Home() {
             from IMDB. Analyze dozen of interactive plots suchs as wordclouds generated 
             by a movies user reviews or income comparision between movies.
           </p>
-          <Link 
-            href="/movies"
-            className="border border-accent-color text-accent-color px-8 py-3 
-                    rounded-full hover:bg-accent-color hover:text-primary-color 
-                    transition-colors"
-          >
-            View All Movies
-          </Link>
+          <PillLink href="/movies" text="View All Movies" />
         </div>
       </section>
 
@@ -102,14 +96,7 @@ export default function Home() {
             ))}
           </Carousel>
           <div className="text-center mt-12">
-            <Link 
-              href="/movies"
-              className="border border-accent-color text-accent-color px-8 py-3 
-                      rounded-full hover:bg-accent-color hover:text-primary-color 
-                      transition-colors"
-            >
-              View All Movies
-            </Link>
+            <PillLink href="/movies" text="View All Movies" />
           </div>
         </div>
       </section>
