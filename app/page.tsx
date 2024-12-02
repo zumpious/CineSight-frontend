@@ -4,9 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import MovieCard from "@/components/MovieCard/MovieCard";
 import Carousel from '@/components/Carousel';
-import { fetchPreview } from "@/services/preview";
+import { fetchPreview } from "@/services/preview-api";
 import { Movie } from "@/types/movie";
-import background from "../public/img/background.jpg";
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
