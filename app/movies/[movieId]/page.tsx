@@ -68,7 +68,7 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
                   </svg>
                 )}
                 <span className={`${movie.ROI >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  ROI: {movie.ROI.toFixed(2)}%
+                  ROI: {(movie.ROI * 100).toFixed(2)}%
                 </span>
               </p>
               
