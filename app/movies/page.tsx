@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import MovieCard from '@/components/MovieCard/MovieCard';
+import FilterButton from '@/components/FilterButton';
 import { fetchMovies } from '@/services/movies_api';
 import { Movie } from '@/types/movie';
 
@@ -94,22 +95,12 @@ export default function MoviesPage() {
             <h2 className="text-xl mb-3">Filter by Year</h2>
             <div className="grid grid-cols-4 gap-2 pr-4">
               {YEARS.map((year) => (
-                <button
+                <FilterButton
                   key={year}
+                  text={year.toString()}
                   onClick={() => handleYearClick(year)}
-                  className={`
-                    px-2 h-6
-                    flex items-center justify-center
-                    rounded
-                    text-sm
-                    ${selectedYear === year
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }
-                  `}
-                >
-                  {year}
-                </button>
+                  selected={selectedYear === year}
+                />
               ))}
             </div>
           </div>
@@ -119,22 +110,12 @@ export default function MoviesPage() {
             <h2 className="text-xl mb-3">Filter by Rating</h2>
             <div className="grid grid-cols-5 gap-2 pr-4">
               {RATINGS.map((rating) => (
-                <button
+                <FilterButton
                   key={rating}
+                  text={rating.toString()}
                   onClick={() => handleRatingClick(rating)}
-                  className={`
-                    px-2 h-6
-                    flex items-center justify-center
-                    rounded
-                    text-sm
-                    ${selectedRating === rating
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }
-                  `}
-                >
-                  {rating}
-                </button>
+                  selected={selectedRating === rating}
+                />
               ))}
             </div>
           </div>
