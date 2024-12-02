@@ -78,7 +78,7 @@ export default function Home() {
       </section>
 
       {/* Latest Movies Preview */}
-      <section className="py-20 bg-secondary-color">
+      <section className="py-10 bg-secondary-color">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">Latest Movies</h2>
           {loading && <div className="text-center">Loading...</div>}

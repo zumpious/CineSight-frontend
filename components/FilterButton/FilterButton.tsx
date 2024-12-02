@@ -10,10 +10,12 @@ export default function FilterButton({ text, onClick, selected }: FilterButtonPr
         flex items-center justify-center
         rounded
         text-sm
+        border-[0.5px]
+        transition-colors
         ${
           selected
-            ? 'bg-blue-500 text-white'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            ? 'bg-white text-black border-white'
+            : 'bg-black text-white border-white hover:bg-white hover:text-black'
         }
       `}
     >

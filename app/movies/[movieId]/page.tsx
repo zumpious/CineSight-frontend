@@ -15,7 +15,8 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
         {/* Back button */}
         <Link
           href="/movies"
-          className="inline-flex items-center mb-6 text-accent-color hover:text-accent-color/80"
+          className="inline-flex items-center mb-6 text-accent-color hover:text-accent-color/80 
+                    tansform transition-transform hover:scale-105"
         >
           ← Back to Movies
         </Link>
