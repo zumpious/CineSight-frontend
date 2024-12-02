@@ -23,15 +23,17 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
 
         {/* Movie Header */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div className="relative h-[450px] md:col-span-1">
-            <Image
-              src={movie.cover}
-              alt={movie.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover rounded-lg"
-              priority
-            />
+          <div className="md:col-span-1">
+            <div className="relative w-3/5 md:w-4/5 mx-auto aspect-[2/3]">
+              <Image
+                src={movie.cover}
+                alt={movie.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-contain rounded-lg"
+                priority
+              />
+            </div>
           </div>
           
           <div className="md:col-span-2">
