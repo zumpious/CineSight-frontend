@@ -1,4 +1,3 @@
-import React from 'react';
 import { FilterSelectProps } from './FilterSelect.types';
 
 export default function FilterSelect<T extends string | number>({

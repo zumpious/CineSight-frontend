@@ -1,2 +1,2 @@
 export { default } from './WordCloud';
-export type { WordCloudProps, Word } from './WordCloud.types';
+export type { Word, WordCloudProps } from './WordCloud.types';

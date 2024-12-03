@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { CarouselProps } from './Carousel.types';
 
 export default function Carousel({ children }: CarouselProps) {
@@ -60,64 +60,64 @@ export default function Carousel({ children }: CarouselProps) {
 
   return (
     <div className="relative">
-        {showPrevButton && (
+      {showPrevButton && (
         <button
-            onClick={() => scroll('left')}
-            className="absolute left-5 top-1/2 -translate-y-1/2 -translate-x-2
+          onClick={() => scroll('left')}
+          className="absolute left-5 top-1/2 -translate-y-1/2 -translate-x-2
                     bg-black bg-opacity-30 p-3 rounded-full shadow-lg z-10
                     hover:bg-opacity-90 transition-colors"
-            aria-label="Previous slides"
+          aria-label="Previous slides"
         >
-            <svg
+          <svg
             className="w-12 h-12 text-white"
             fill="none"
             strokeWidth="2"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            >
+          >
             <path d="M15 19l-7-7 7-7" />
-            </svg>
+          </svg>
         </button>
-        )}
+      )}
 
-        <div
+      <div
         ref={carouselRef}
         className="overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth"
-        >
+      >
         <div
-            className="grid grid-flow-col gap-6"
-            style={{
+          className="grid grid-flow-col gap-6"
+          style={{
             gridTemplateColumns: `repeat(${
-                Array.isArray(children) ? children.length : 1
+              Array.isArray(children) ? children.length : 1
             }, minmax(0, 1fr))`,
             width: `calc(${
-                Array.isArray(children) ? children.length : 1
+              Array.isArray(children) ? children.length : 1
             } * (100% / ${slidesPerView}))`,
-            }}
+          }}
         >
-            {children}
+          {children}
         </div>
-        </div>
+      </div>
 
-        {showNextButton && (
+      {showNextButton && (
         <button
-            onClick={() => scroll('right')}
-            className="absolute right-5 top-1/2 -translate-y-1/2 translate-x-2
+          onClick={() => scroll('right')}
+          className="absolute right-5 top-1/2 -translate-y-1/2 translate-x-2
                     bg-black bg-opacity-30 p-3 rounded-full shadow-lg z-10
                     hover:bg-opacity-90 transition-colors"
-            aria-label="Next slides"
+          aria-label="Next slides"
         >
-            <svg
+          <svg
             className="w-12 h-12 text-white"
             fill="none"
             strokeWidth="2"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            >
+          >
             <path d="M9 5l7 7-7 7" />
-            </svg>
+          </svg>
         </button>
-        )}
+      )}
     </div>
   );
 }

@@ -1,14 +1,14 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import WordCloud from '@/components/WordCloud/WordCloud';
 import { fetchMovieById } from '@/services/movie_api';
 import { MovieDetail as MovieDetailType } from '@/types/movie';
-import WordCloud from '@/components/WordCloud/WordCloud';
-import { MovieDetailProps} from './page.types';
+import Image from 'next/image';
+import Link from 'next/link';
+import { MovieDetailProps } from './page.types';
 
 export default async function MovieDetail({ params }: MovieDetailProps) {
   const local_params = await params;
   const movie: MovieDetailType = await fetchMovieById(local_params.movieId);
-  
+
   return (
     <div className="min-h-screen py-10">
       <div className="container mx-auto px-4">
@@ -35,7 +35,7 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
               />
             </div>
           </div>
-          
+
           <div className="md:col-span-2">
             <h1 className="text-4xl font-bold mb-4">{movie.title}</h1>
             <div className="flex items-center gap-4 mb-6">
@@ -45,12 +45,16 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
               <span>{new Date(movie.release).toLocaleDateString()}</span>
               <span>{movie.runtime} min</span>
             </div>
-            
+
             <div className="space-y-4">
               <p className="text-lg">{movie.origin}</p>
               <p className="text-lg">Age: {movie.age}</p>
-              <p className="text-lg">Budget: ${movie.budget.toLocaleString()}</p>
-              <p className="text-lg">Box Office: ${movie.boxoffice.toLocaleString()}</p>
+              <p className="text-lg">
+                Budget: ${movie.budget.toLocaleString()}
+              </p>
+              <p className="text-lg">
+                Box Office: ${movie.boxoffice.toLocaleString()}
+              </p>
               <p className="text-lg flex items-center">
                 {movie.ROI >= 0 ? (
                   <svg
@@ -69,16 +73,18 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
                     <path d="M15 10l-5 5-5-5h10z" />
                   </svg>
                 )}
-                <span className={`${movie.ROI >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                <span
+                  className={`${movie.ROI >= 0 ? 'text-green-600' : 'text-red-600'}`}
+                >
                   ROI: {(movie.ROI * 100).toFixed(2)}%
                 </span>
               </p>
-              
+
               <div>
                 <h2 className="text-xl font-bold mb-2">Directors</h2>
                 <div className="flex gap-2">
                   {movie.directors.map((director) => (
-                    <span 
+                    <span
                       key={director}
                       className="bg-secondary-color px-3 py-1 rounded-full text-sm"
                     >
@@ -92,7 +98,7 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
                 <h2 className="text-xl font-bold mb-2">Genres</h2>
                 <div className="flex gap-2">
                   {movie.genres.map((genre) => (
-                    <span 
+                    <span
                       key={genre}
                       className="bg-secondary-color px-3 py-1 rounded-full text-sm"
                     >
@@ -106,7 +112,7 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
                 <h2 className="text-xl font-bold mb-2">Actors</h2>
                 <div className="flex flex-wrap gap-2">
                   {movie.actors.map((actor) => (
-                    <span 
+                    <span
                       key={actor}
                       className="bg-secondary-color px-3 py-1 rounded-full text-sm"
                     >
@@ -120,7 +126,7 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
                 <h2 className="text-xl font-bold mb-2">Rating Details</h2>
                 <div className="flex flex-wrap gap-2">
                   {Object.entries(movie.ratings).map(([key, value]) => (
-                    <span 
+                    <span
                       key={key}
                       className="bg-secondary-color px-3 py-1 rounded-full text-sm"
                     >
@@ -132,7 +138,10 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
 
               <div>
                 <h2 className="text-xl font-bold mb-2">More Info</h2>
-                <a href={movie.link} className="text-accent-color hover:underline">
+                <a
+                  href={movie.link}
+                  className="text-accent-color hover:underline"
+                >
                   {movie.link}
                 </a>
               </div>
@@ -143,9 +152,11 @@ export default async function MovieDetail({ params }: MovieDetailProps) {
         {/* Word Cloud Section */}
         <div className="mt-12 flex justify-center md:justify-end">
           <div className="w-full md:w-2/3">
-            <h2 className="text-2xl font-bold mb-6">Word Cloud of Most Frequent Words in IMDB User Reviews</h2>
+            <h2 className="text-2xl font-bold mb-6">
+              Word Cloud of Most Frequent Words in IMDB User Reviews
+            </h2>
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 shadow-lg">
-                <WordCloud words={movie.wordcloud} />
+              <WordCloud words={movie.wordcloud} />
             </div>
           </div>
         </div>

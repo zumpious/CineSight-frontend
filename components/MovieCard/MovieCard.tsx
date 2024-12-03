@@ -2,11 +2,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MovieCardProps } from './MovieCard.types';
 
-export default function MovieCard({ id, title, rating, cover, release }: MovieCardProps) {
+export default function MovieCard({
+  id,
+  title,
+  rating,
+  cover,
+  release,
+}: MovieCardProps) {
   return (
     <Link href={`/movies/${id}`}>
-      <div className="h-full bg-secondary-color rounded-lg overflow-hidden 
-                      transition-transform hover:scale-105 cursor-pointer">
+      <div
+        className="h-full bg-secondary-color rounded-lg overflow-hidden 
+                      transition-transform hover:scale-105 cursor-pointer"
+      >
         <div className="relative h-[300px]">
           <Image
             src={cover}

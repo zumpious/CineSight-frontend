@@ -1,7 +1,10 @@
-import React from 'react';
 import { FilterButtonProps } from './FilterButton.types';
 
-export default function FilterButton({ text, onClick, selected }: FilterButtonProps) {
+export default function FilterButton({
+  text,
+  onClick,
+  selected,
+}: FilterButtonProps) {
   return (
     <button
       onClick={onClick}

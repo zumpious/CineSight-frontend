@@ -52,11 +52,11 @@
   transition: all 0.3s ease;
 }
 
-.burgerButton[data-open="true"] .burgerLine:nth-child(1) {
+.burgerButton[data-open='true'] .burgerLine:nth-child(1) {
   transform: translateY(9px) rotate(45deg);
 }
 
-.burgerButton[data-open="true"] .burgerLine:nth-child(2) {
+.burgerButton[data-open='true'] .burgerLine:nth-child(2) {
   transform: translateY(-9px) rotate(-45deg);
 }
 
@@ -72,7 +72,7 @@
   visibility: hidden;
 }
 
-.mobileNav[data-open="true"] {
+.mobileNav[data-open='true'] {
   transform: translateY(0);
   opacity: 1;
   visibility: visible;
@@ -93,7 +93,7 @@
   transition: all 0.3s ease;
 }
 
-.mobileNav[data-open="true"] .mobileNavItem {
+.mobileNav[data-open='true'] .mobileNavItem {
   transform: translateY(0);
   opacity: 1;
 }

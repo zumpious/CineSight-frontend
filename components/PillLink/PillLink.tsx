@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { PillLinkProps } from './PillLink.types'
+import Link from 'next/link';
+import { PillLinkProps } from './PillLink.types';
 
 export default function PillLink({ href, text }: PillLinkProps) {
   return (
@@ -8,5 +8,5 @@ export default function PillLink({ href, text }: PillLinkProps) {
         {text}
       </div>
     </Link>
-  )
+  );
 }

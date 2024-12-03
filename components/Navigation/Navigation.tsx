@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { NavItem } from './Navigation.types';
 import styles from './Navigation.module.css';
+import { NavItem } from './Navigation.types';
 
 const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
@@ -23,13 +23,10 @@ export default function Navigation() {
     <nav className="sticky top-0 z-50 bg-primary-color/95 backdrop-blur supports-[backdrop-filter]:bg-primary-color/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link 
-            href="/" 
-            className="text-3xl font-bold text-accent-color"
-          >
+          <Link href="/" className="text-3xl font-bold text-accent-color">
             CineSight
           </Link>
-          
+
           {/* Desktop Navigation */}
           <ul className={`flex gap-12 ${styles.desktopNav}`}>
             {navItems.map((item) => (
@@ -37,8 +34,8 @@ export default function Navigation() {
                 <Link
                   href={item.href}
                   className={`text-3xl ${styles.navLink} ${
-                    pathname === item.href 
-                      ? `text-accent-color ${styles.active}` 
+                    pathname === item.href
+                      ? `text-accent-color ${styles.active}`
                       : 'text-text-primary'
                   }`}
                 >
@@ -49,7 +46,7 @@ export default function Navigation() {
           </ul>
 
           {/* Burger Menu Button */}
-          <button 
+          <button
             className={styles.burgerButton}
             onClick={toggleMenu}
             data-open={isMenuOpen}
@@ -58,15 +55,12 @@ export default function Navigation() {
             <span className={styles.burgerLine}></span>
             <span className={styles.burgerLine}></span>
           </button>
-          
+
           {/* Mobile Navigation */}
-          <div 
-            className={styles.mobileNav}
-            data-open={isMenuOpen}
-          >
+          <div className={styles.mobileNav} data-open={isMenuOpen}>
             <ul className={styles.mobileNavList}>
               {navItems.map((item, index) => (
-                <li 
+                <li
                   key={item.href}
                   className={styles.mobileNavItem}
                   style={{ transitionDelay: `${index * 200}ms` }}
@@ -74,8 +68,8 @@ export default function Navigation() {
                   <Link
                     href={item.href}
                     className={`text-3xl ${styles.navLink} ${
-                      pathname === item.href 
-                        ? 'text-accent-color' 
+                      pathname === item.href
+                        ? 'text-accent-color'
                         : 'text-text-primary'
                     }`}
                     onClick={() => setIsMenuOpen(false)}

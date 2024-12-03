@@ -1,8 +1,8 @@
 'use client';
-import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import cloud from 'd3-cloud';
-import { WordCloudProps, Word } from './WordCloud.types';
+import { useEffect, useRef } from 'react';
+import { Word, WordCloudProps } from './WordCloud.types';
 
 export default function WordCloud({ words }: WordCloudProps) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -10,7 +10,7 @@ export default function WordCloud({ words }: WordCloudProps) {
   useEffect(() => {
     if (!svgRef.current) return;
 
-    d3.select(svgRef.current).selectAll("*").remove();
+    d3.select(svgRef.current).selectAll('*').remove();
 
     const entries = Object.entries(words);
     const maxCount = Math.max(...entries.map(([_, [__, count]]) => count));
@@ -20,12 +20,12 @@ export default function WordCloud({ words }: WordCloudProps) {
       const freqWeight = frequency / maxFreq;
       const countWeight = count / maxCount;
       const combinedWeight = (freqWeight + countWeight) / 2;
-      
+
       return {
         text,
         size: Math.max(12, Math.min(50, Math.pow(combinedWeight, 0.7) * 80)),
         value: count,
-        frequency: frequency
+        frequency: frequency,
       };
     });
 
@@ -41,33 +41,40 @@ export default function WordCloud({ words }: WordCloudProps) {
       .rotate(() => 0)
       .fontSize((d: Word) => d.size)
       .spiral('archimedean')
-      .on("end", draw);
+      .on('end', draw);
 
     function draw(words: Word[]) {
-      const svg = d3.select(svgRef.current)
-        .attr("width", "100%")
-        .attr("height", height)
-        .attr("viewBox", `0 0 ${width} ${height}`);
+      const svg = d3
+        .select(svgRef.current)
+        .attr('width', '100%')
+        .attr('height', height)
+        .attr('viewBox', `0 0 ${width} ${height}`);
 
-      const g = svg.append("g")
-        .attr("transform", `translate(${width/2},${height/2})`);
+      const g = svg
+        .append('g')
+        .attr('transform', `translate(${width / 2},${height / 2})`);
 
-      const colorScale = d3.scaleSequential()
-        .domain([0, d3.max(words, d => d.frequency) || 1])
+      const colorScale = d3
+        .scaleSequential()
+        .domain([0, d3.max(words, (d) => d.frequency) || 1])
         .interpolator(d3.interpolateBlues);
 
-      g.selectAll("text")
+      g.selectAll('text')
         .data(words)
-        .enter().append("text")
-        .style("font-size", (d: Word) => `${d.size}px`)
-        .style("font-family", "system-ui")
-        .style("fill", (d: Word) => colorScale(d.frequency))
-        .style("cursor", "pointer")
-        .attr("text-anchor", "middle")
-        .attr("transform", (d: Word) => `translate(${d.x},${d.y})`)
+        .enter()
+        .append('text')
+        .style('font-size', (d: Word) => `${d.size}px`)
+        .style('font-family', 'system-ui')
+        .style('fill', (d: Word) => colorScale(d.frequency))
+        .style('cursor', 'pointer')
+        .attr('text-anchor', 'middle')
+        .attr('transform', (d: Word) => `translate(${d.x},${d.y})`)
         .text((d: Word) => d.text)
-        .append("title")
-        .text((d: Word) => `${d.text}\nFrequency: ${(d.frequency * 100).toFixed(2)}%\nCount: ${d.value}`);
+        .append('title')
+        .text(
+          (d: Word) =>
+            `${d.text}\nFrequency: ${(d.frequency * 100).toFixed(2)}%\nCount: ${d.value}`
+        );
     }
 
     layout.start();
@@ -75,7 +82,11 @@ export default function WordCloud({ words }: WordCloudProps) {
 
   return (
     <div>
-      <svg ref={svgRef} className="w-full" preserveAspectRatio="xMidYMid meet" />
+      <svg
+        ref={svgRef}
+        className="w-full"
+        preserveAspectRatio="xMidYMid meet"
+      />
     </div>
   );
 }

@@ -3,4 +3,3 @@ export interface FilterButtonProps {
   onClick: () => void;
   selected: boolean;
 }
-  

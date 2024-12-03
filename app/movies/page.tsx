@@ -1,10 +1,10 @@
 'use client';
-import { useState, useEffect } from 'react';
-import MovieCard from '@/components/MovieCard/MovieCard';
 import FilterButton from '@/components/FilterButton';
 import FilterSelect from '@/components/FilterSelect';
+import MovieCard from '@/components/MovieCard/MovieCard';
 import { fetchMovies } from '@/services/movies_api';
 import { Movie } from '@/types/movie';
+import { useEffect, useState } from 'react';
 
 const YEARS = Array.from({ length: 43 }, (_, i) => 2022 - i);
 const RATINGS = Array.from({ length: 10 }, (_, i) => i + 1);
