@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 
 const YEARS = Array.from({ length: 43 }, (_, i) => 2022 - i);
 const RATINGS = Array.from({ length: 10 }, (_, i) => i + 1);
+const PAGE_SIZE = 20;
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -29,7 +30,7 @@ export default function MoviesPage() {
         year: selectedYear || undefined,
         rating: selectedRating || undefined,
         page,
-        page_size: 20,
+        page_size: PAGE_SIZE,
       };
 
       const response: MovieResponse = await fetchMovies(filters);
