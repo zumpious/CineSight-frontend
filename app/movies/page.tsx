@@ -2,7 +2,11 @@
 import FilterButton from '@/components/FilterButton';
 import FilterSelect from '@/components/FilterSelect';
 import MovieCard from '@/components/MovieCard/MovieCard';
-import { fetchMovies } from '@/services/movies_api';
+import {
+  fetchMovies,
+  MovieFilters,
+  MovieResponse,
+} from '@/services/movies_api';
 import { Movie } from '@/types/movie';
 import { useEffect, useState } from 'react';
 
@@ -14,17 +18,25 @@ export default function MoviesPage() {
   const [loading, setLoading] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(2022);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasNext, setHasNext] = useState(false);
 
-  const loadMovies = async () => {
+  const loadMovies = async (page: number = 1) => {
     setLoading(true);
     try {
-      const filters = {
+      const filters: MovieFilters = {
         year: selectedYear || undefined,
         rating: selectedRating || undefined,
+        page,
+        page_size: 20,
       };
 
-      const newMovies = await fetchMovies(filters);
-      setMovies(newMovies);
+      const response: MovieResponse = await fetchMovies(filters);
+      setMovies((prevMovies) =>
+        page === 1 ? response.movies : [...prevMovies, ...response.movies]
+      );
+      setHasNext(response.pagination.has_next);
+      setCurrentPage(response.pagination.current_page);
     } catch (error) {
       console.error('Error loading movies:', error);
     } finally {
@@ -33,7 +45,7 @@ export default function MoviesPage() {
   };
 
   useEffect(() => {
-    loadMovies();
+    loadMovies(1);
   }, [selectedYear, selectedRating]);
 
   const handleYearClick = (year: number) => {
@@ -42,6 +54,12 @@ export default function MoviesPage() {
 
   const handleRatingClick = (rating: number) => {
     setSelectedRating(selectedRating === rating ? null : rating);
+  };
+
+  const handleLoadMore = () => {
+    if (hasNext) {
+      loadMovies(currentPage + 1);
+    }
   };
 
   return (
@@ -113,6 +131,17 @@ export default function MoviesPage() {
               <MovieCard key={movie.id} {...movie} />
             ))}
           </div>
+
+          {hasNext && !loading && (
+            <div className="text-center mt-8">
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+                onClick={handleLoadMore}
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
