@@ -1,6 +1,7 @@
 'use client';
 import FilterButton from '@/components/FilterButton';
 import FilterSelect from '@/components/FilterSelect';
+import LoadMoreButton from '@/components/LoadMoreButton';
 import MovieCard from '@/components/MovieCard/MovieCard';
 import {
   fetchMovies,
@@ -133,13 +134,8 @@ export default function MoviesPage() {
           </div>
 
           {hasNext && !loading && (
-            <div className="text-center mt-8">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={handleLoadMore}
-              >
-                Load More
-              </button>
+            <div className="flex justify-center my-8">
+              <LoadMoreButton onClick={handleLoadMore} loading={loading} />
             </div>
           )}
         </div>
