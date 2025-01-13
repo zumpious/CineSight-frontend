@@ -15,7 +15,7 @@ export default function Home() {
     setLoading(true);
     try {
       const newMovies = await fetchPreview();
-      setMovies(newMovies);
+      setMovies((prevMovies) => [...prevMovies, ...newMovies]);
     } catch (error) {
       console.error('Error loading movies:', error);
     } finally {
