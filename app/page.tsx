@@ -1,4 +1,5 @@
 'use client';
+
 import Carousel from '@/components/Carousel';
 import MovieCard from '@/components/MovieCard/MovieCard';
 import PillLink from '@/components/PillLink';
@@ -10,12 +11,14 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1); // Added page state for pagination
 
   const loadPreview = async () => {
     setLoading(true);
     try {
       const newMovies = await fetchPreview();
-      setMovies((prevMovies) => [...prevMovies, ...newMovies]);
+      setMovies((prevMovies) => [...prevMovies, ...newMovies]); // Append new movies to the existing list
+      setPage((prevPage) => prevPage + 1); // Increment page number
     } catch (error) {
       console.error('Error loading movies:', error);
     } finally {
@@ -107,7 +110,16 @@ export default function Home() {
               ))}
             </Carousel>
             <div className="text-center mt-12">
-              <PillLink href="/movies" text="View All Movies" />
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <button
+                  onClick={loadPreview}
+                  className="px-4 py-2 bg-primary-color text-white rounded-md hover:bg-primary-color-dark"
+                >
+                  Load More Movies
+                </button>
+              )}
             </div>
           </div>
         </section>
